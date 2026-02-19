@@ -1,8 +1,9 @@
 {
   "name": "e-mahmoudi-portfolio",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
-    "build": "mkdir -p dist && cp -r index.html css js assets robots.txt sitemap.xml dist/"
+    "build": "hugo --minify --destination dist",
+    "dev": "hugo server --buildDrafts --disableFastRender"
   }
 }

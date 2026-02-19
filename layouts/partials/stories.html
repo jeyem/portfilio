@@ -1,0 +1,43 @@
+<!-- STORIES -->
+<section class="stories-section" id="stories">
+  <div class="section-inner">
+    <div class="section-tag reveal">Life & Work</div>
+    <h2 class="section-title reveal">
+      Stories behind<br><em>the commits</em>
+    </h2>
+    <p class="section-desc reveal">
+      Code doesn't exist in a vacuum. Here's the context — the country,
+      the challenges, the life around the screen.
+    </p>
+
+    <div id="storiesContainer">
+      {{ range $.Site.Data.stories }}
+      <article class="story-item" data-story="{{ .index }}">
+        <div class="story-header">
+          <div class="story-icon" style="background: {{ .iconBg }}; border-color: {{ .iconBorder }};">{{ .icon }}</div>
+          <div>
+            <div class="story-tag-inline" style="color: {{ .tagColor }};">{{ .tag }}</div>
+            <div class="story-heading">{{ .heading }}</div>
+          </div>
+          <div class="story-toggle">+</div>
+        </div>
+        <div class="story-body">
+          <div class="story-body-inner">
+            {{ range .paragraphs }}
+            <p>{{ . }}</p>
+            {{ end }}
+            <div class="story-gallery">
+              {{ $folder := .gallery.folder }}
+              {{ range .gallery.images }}
+              <div class="story-gallery-item">
+                <img src="/assets/stories/web/{{ $folder }}/{{ .file }}" loading="lazy" alt="{{ .alt }}">
+              </div>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>

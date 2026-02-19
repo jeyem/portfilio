@@ -1,0 +1,32 @@
+<!-- SUPPORT / DONATE -->
+<section class="donate-section" id="support">
+  <div class="section-inner">
+    <div class="section-tag reveal">Support</div>
+    <h2 class="section-title reveal">Support <em>my family</em></h2>
+    <p class="section-desc reveal">
+      We live under sanctions in one of the hardest places to raise a family.
+      Traditional payment methods don't work here — but crypto does.
+      If my work helped you, this goes directly to keeping us going.
+    </p>
+
+    <div class="reveal">
+      <div class="chain-tabs" id="chainTabs">
+        {{ range $.Site.Data.crypto.chains }}
+        <button class="chain-tab{{ if .default }} active{{ end }}" data-chain="{{ .id }}">{{ .symbol }} {{ .label }}</button>
+        {{ end }}
+      </div>
+
+      {{ range $.Site.Data.crypto.chains }}
+      {{ if .default }}
+      <div class="donate-box">
+        <div class="donate-label" id="donateLabel">{{ .id | upper }} ADDRESS</div>
+        <div class="donate-address" id="donateAddress">{{ .address }}</div>
+        <button class="btn-primary donate-copy" id="copyBtn" onclick="copyAddress()">
+          Copy Address
+        </button>
+      </div>
+      {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</section>

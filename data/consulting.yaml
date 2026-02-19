@@ -1,0 +1,49 @@
+plans:
+  - title: "Intro Call"
+    price: "Free"
+    desc: "Let's talk about your project, your stack, and where I can help."
+    btnClass: "plan-btn-outline"
+    featured: false
+  - title: "Deep Dive"
+    price: "$100"
+    desc: "Architecture review, code audit, or hands-on strategy session."
+    btnClass: "plan-btn-filled"
+    featured: false
+  - title: "Architecture Session"
+    price: "$400"
+    desc: "Full system design, scaling plan, or team workshop with your devs."
+    btnClass: "plan-btn-outline"
+    featured: false
+
+skillGroups:
+  - label: "Languages"
+    tags:
+      - "Golang"
+      - "Node.js"
+      - "Python"
+      - "Solidity"
+      - "Aiken"
+  - label: "Blockchain"
+    tags:
+      - "Smart Contracts"
+      - "Ethereum"
+      - "Cardano"
+      - "dApps"
+      - "Digital Identity"
+      - "Escrow"
+  - label: "Infrastructure"
+    tags:
+      - "AWS"
+      - "GCP"
+      - "CI/CD"
+      - "Docker"
+      - "RabbitMQ"
+      - "NATS"
+  - label: "I Help With"
+    tags:
+      - "Backend Scaling"
+      - "API Design"
+      - "Database Design"
+      - "Code Review"
+      - "Team Mentoring"
+      - "AI & LLMs"

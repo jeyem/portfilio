@@ -1,0 +1,26 @@
+chains:
+  - id: "ethereum"
+    symbol: "⟠"
+    label: "ETH"
+    address: "0x0eF141188cc4E8E0f8022ad7c50172f0feEE9Ca8"
+    default: true
+  - id: "bitcoin"
+    symbol: "₿"
+    label: "BTC"
+    address: "bc1pc8vuu2va29wp3mlf5zye7pfl0g350agxeerqe67hm3jt6876cleqhxutmd"
+    default: false
+  - id: "bsc"
+    symbol: "⬡"
+    label: "BSC"
+    address: "0x0eF141188cc4E8E0f8022ad7c50172f0feEE9Ca8"
+    default: false
+  - id: "xrp"
+    symbol: "✕"
+    label: "XRP"
+    address: "rKSCtxX1EMpLd2TK1y9sreNb3QAKnT12DG"
+    default: false
+  - id: "cardano"
+    symbol: "◈"
+    label: "ADA"
+    address: "addr1qxgp4e62vnqpp4u3nxmlsy6f484h4gfhup2sdznm3c2tena9dve7tnrgrjhkvepdapa7eus0a9y57aty6tla62yj0rnqpy7wcq"
+    default: false

@@ -1,0 +1,140 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .Title }}</title>
+  {{ if .Description }}
+  <meta name="description" content="{{ .Description }}">
+  {{ else }}
+  <meta name="description" content="{{ .Site.Params.description }}">
+  {{ end }}
+  {{ if .IsHome }}
+  <meta name="keywords" content="blockchain consultant, smart contract developer, software architect, startup CTO consultant, Solidity developer, Cardano developer, Golang backend, Node.js architect, dApp development, blockchain consulting, remote software engineer, hire blockchain developer, Ehsan Mahmoudi, backend scaling, API architecture, digital identity blockchain, escrow smart contract, technical consulting, startup consulting, web3 developer, freelance blockchain engineer, Ethereum smart contract audit, Cardano Aiken developer, decentralized application architect, crypto payment system, DeFi developer, fullstack engineer remote, Go developer for hire, Python backend developer, microservices architect, distributed systems engineer, DevOps consultant, CI/CD pipeline expert, cloud architect AWS GCP, database design PostgreSQL MongoDB, real-time data pipeline, RabbitMQ NATS messaging, React frontend developer, technical team lead, code review consultant, AI LLM integration, system design consultant, blockchain escrow platform, multi-chain development, EVM compatible chains, BSC developer, token distribution smart contract, Web3 wallet integration, Wagmi ethers.js, network monitoring systems, InfluxDB timeseries, software consulting Iran, remote CTO, fractional CTO">
+  {{ end }}
+  <meta name="author" content="Ehsan Mahmoudi">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="{{ .Permalink }}">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ .Title }}">
+  {{ if .Description }}
+  <meta property="og:description" content="{{ .Description }}">
+  {{ else }}
+  <meta property="og:description" content="Hire a blockchain consultant and software architect with 10+ years shipping smart contracts, backend systems, and dApps. Solidity, Golang, Cardano, Ethereum. Book a session.">
+  {{ end }}
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:image" content="https://e-mahmoudi.me/assets/avatar.png">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="{{ .Site.Params.twitterHandle }}">
+  <meta name="twitter:title" content="{{ .Title }}">
+  {{ if .Description }}
+  <meta name="twitter:description" content="{{ .Description }}">
+  {{ else }}
+  <meta name="twitter:description" content="Smart contract dev, backend architect, 10+ years. Solidity, Golang, Cardano, Ethereum. Book a consulting session.">
+  {{ end }}
+
+  {{ if .IsHome }}
+  <!-- Structured Data: Person -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ehsan Mahmoudi",
+    "jobTitle": "Blockchain Consultant & Software Architect",
+    "url": "https://e-mahmoudi.me",
+    "email": "me@e-mahmoudi.me",
+    "telephone": "+989125075911",
+    "description": "Blockchain consultant and software architect with 10+ years building smart contracts, backend systems, and dApps on Ethereum and Cardano.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Tehran",
+      "addressCountry": "IR"
+    },
+    "sameAs": [
+      "https://github.com/jeyem",
+      "https://twitter.com/jeyem90",
+      "https://www.linkedin.com/in/ehsan-mahmoudi-611123b8/"
+    ],
+    "knowsAbout": [
+      "Blockchain Consulting", "Smart Contract Development", "Software Architecture",
+      "Ethereum", "Cardano", "Solidity", "Aiken", "Golang", "Node.js", "Python",
+      "Backend Scaling", "dApp Development", "Digital Identity", "Escrow Systems",
+      "API Architecture", "CI/CD", "AWS", "GCP", "PostgreSQL", "MongoDB",
+      "Startup Technical Consulting", "Team Mentoring"
+    ],
+    "alumniOf": {
+      "@type": "EducationalOrganization",
+      "name": "Azad Yazd University"
+    }
+  }
+  </script>
+
+  <!-- Structured Data: Consulting Service -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Blockchain & Software Architecture Consulting",
+    "description": "Expert consulting for blockchain development, smart contract architecture, backend scaling, dApp development, and startup technical strategy. Ethereum, Cardano, Golang, Node.js.",
+    "provider": {
+      "@type": "Person",
+      "name": "Ehsan Mahmoudi",
+      "url": "https://e-mahmoudi.me"
+    },
+    "serviceType": "Technology Consulting",
+    "areaServed": "Worldwide",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Consulting Sessions",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "name": "Intro Call",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "Free introductory call to discuss your project and technical needs."
+        },
+        {
+          "@type": "Offer",
+          "name": "Deep Dive",
+          "price": "100",
+          "priceCurrency": "USD",
+          "description": "Architecture review, code audit, or hands-on strategy session."
+        },
+        {
+          "@type": "Offer",
+          "name": "Architecture Session",
+          "price": "400",
+          "priceCurrency": "USD",
+          "description": "Full system design, scaling plan, or team workshop."
+        }
+      ]
+    }
+  }
+  </script>
+  {{ end }}
+
+  <!-- RSS autodiscovery -->
+  {{ range .AlternativeOutputFormats }}
+  <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ $.Site.Title }}">
+  {{ end }}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&family=Libre+Franklin:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.ga4ID }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ .Site.Params.ga4ID }}');
+  </script>
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/avatar.png">
+</head>

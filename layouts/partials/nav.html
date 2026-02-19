@@ -1,0 +1,17 @@
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="/" class="nav-logo">Ehsan M.</a>
+  <div class="nav-links">
+    {{ if .IsHome }}
+    <a href="#stories">Stories</a>
+    <a href="#consulting">Consulting</a>
+    <a href="#support">Support</a>
+    {{ else }}
+    <a href="/#stories">Stories</a>
+    <a href="/#consulting">Consulting</a>
+    <a href="/#support">Support</a>
+    {{ end }}
+    <a href="/blog/">Blog</a>
+    <a href="/assets/Ehsan_Mahmoudi_CV.pdf" download="Ehsan_Mahmoudi_CV.pdf" class="nav-cv">↓ CV</a>
+  </div>
+</nav>

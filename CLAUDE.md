@@ -25,13 +25,18 @@ Personal portfolio website for Ehsan Mahmoudi (e-mahmoudi.me). Single-page stati
 └── CLAUDE.md
 ```
 
-There is no package.json, no build step, and no test suite.
+There is no test suite.
 
 ## Development
 
 Serve with any static file server (external CSS/JS won't load via `file://`):
 ```
 python3 -m http.server 8000
+```
+
+Build (copies files to `dist/` for deployment):
+```
+npm run build
 ```
 
 ## Architecture

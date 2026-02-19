@@ -1,0 +1,20 @@
+{{ define "main" }}
+<article class="blog-single-wrapper">
+  <div class="section-inner">
+    <header class="blog-single-header">
+      <a href="/blog/" class="blog-back">← All posts</a>
+      <time class="blog-post-date" datetime="{{ .Date.Format "2006-01-02" }}">
+        {{ .Date.Format "January 2, 2006" }}
+      </time>
+      <h1 class="blog-single-title">{{ .Title }}</h1>
+      {{ with .Description }}<p class="blog-single-desc">{{ . }}</p>{{ end }}
+      {{ with .Params.tags }}
+      <div class="blog-post-tags">
+        {{ range . }}<span class="skill-tag">{{ . }}</span>{{ end }}
+      </div>
+      {{ end }}
+    </header>
+    <div class="blog-single-content">{{ .Content }}</div>
+  </div>
+</article>
+{{ end }}

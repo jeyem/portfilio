@@ -1,0 +1,23 @@
+{{ define "main" }}
+<div class="blog-list-wrapper">
+  <div class="section-inner">
+    <div class="blog-list-header">
+      <div class="section-tag">Tag</div>
+      <h1 class="section-title">{{ .Title }}</h1>
+    </div>
+    <div class="blog-posts">
+      {{ range .Pages.ByDate.Reverse }}
+      <article class="blog-post-card">
+        <time class="blog-post-date" datetime="{{ .Date.Format "2006-01-02" }}">
+          {{ .Date.Format "January 2, 2006" }}
+        </time>
+        <h2 class="blog-post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+        {{ with .Description }}<p class="blog-post-desc">{{ . }}</p>{{ end }}
+      </article>
+      {{ else }}
+      <p class="blog-empty">No posts yet.</p>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{ end }}

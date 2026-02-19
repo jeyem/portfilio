@@ -1,0 +1,144 @@
+- index: 0
+  icon: "🌱"
+  iconBg: "rgba(232,115,74,0.06)"
+  iconBorder: "rgba(232,115,74,0.15)"
+  tag: "Origin Story"
+  tagColor: "#E8734A"
+  heading: "How a Mentor and Linux Changed Everything"
+  paragraphs:
+    - "It started during my IT bachelor's — I picked up C# as my first language, then a mentor pushed me toward Linux and free software. By 2011 I'd joined the FSF and was contributing to GPL3 projects — Emacs plugins, utilities, patches to major packages. That shaped everything: build it open, build it right, give it back."
+    - "Web development pulled me in next — PHP, JavaScript, then Python 3 and Django. When I got into a master's program in AI, Python was already second nature. Scikit-learn, algorithm design, the works. I passed every course but never delivered the final project — I was too busy building real products to care about the degree."
+    - "My first professional role was at Cvas — a Shopify-like e-commerce platform built with Flask, MongoDB, and vanilla HTML/CSS. Nothing fancy, but real users and real problems. That's where the student ended and the engineer began."
+  gallery:
+    folder: "1"
+    images:
+      - { file: "1.webp", alt: "Origin story" }
+      - { file: "2.webp", alt: "Origin story" }
+      - { file: "3.webp", alt: "Origin story" }
+
+- index: 1
+  icon: "🧗"
+  iconBg: "rgba(91,158,111,0.06)"
+  iconBorder: "rgba(91,158,111,0.15)"
+  tag: "Rock Climbing"
+  tagColor: "#5B9E6F"
+  heading: "From Basketball Courts to 8a Walls"
+  paragraphs:
+    - "I was a junior professional basketball player until leg injuries cut that short. Still played on my university team, but when that chapter closed I switched to fitness — seven years of it. When I go into something, I go deep. I studied nutrition, diets, supplements, how the body actually works. It kept me healthy, but it wasn't enough."
+    - "Mountaineering filled the gap. Weekends turned into harder and harder routes until I stood on top of Damavand — the highest peak in Iran. But then the gym felt pointless. I needed a sport I could train daily in the city that hit like mountaineering. That's when I found rock climbing — and it broke me. I was overweight, carrying too much muscle, and my fingers couldn't handle it. Exactly the kind of challenge I can't walk away from."
+    - "Six-seven years later I'm still on the wall. I climb 8a sport routes now — that puts me in the top 10% of climbers worldwide. When I see a path forward, even with low odds, I commit 100%. The wall doesn't negotiate, and neither do I."
+  gallery:
+    folder: "2"
+    images:
+      - { file: "1.webp", alt: "Rock climbing" }
+      - { file: "2.webp", alt: "Rock climbing" }
+      - { file: "3.webp", alt: "Rock climbing" }
+      - { file: "4.webp", alt: "Rock climbing" }
+      - { file: "5.webp", alt: "Rock climbing" }
+      - { file: "6.webp", alt: "Rock climbing" }
+
+- index: 2
+  icon: "⚡"
+  iconBg: "rgba(212,168,83,0.06)"
+  iconBorder: "rgba(212,168,83,0.15)"
+  tag: "Go & Low-Level"
+  tagColor: "#D4A853"
+  heading: "One-Way Packets and Zero Tolerance for Downtime"
+  paragraphs:
+    - "Golang found me through a project called Diod Connection — a secure one-way file sharing system. The server would drop encoded file contents into a directory and send them to a client, but for security, it could never receive a single packet back. We built a physical device that enforced one-way traffic and wrote a full UDP protocol on top of it, with Reed-Solomon parity to keep file corruption near zero despite network errors."
+    - "I fell in love with how Golang handled concurrency, how fast everything compiled, and how a single binary could run across completely different architectures. It clicked in a way no other language had for systems-level work."
+    - "That confidence paid off at AEC. They had a legacy Java project running for 4+ years — Cassandra as a timeseries DB ingesting network metrics and logs at over 1 GB of text per minute. The thing caused daily incidents. We rewrote the core in Golang over six months. After that, incidents became rare. Same data, same scale — just a language and team that could actually handle it."
+  gallery:
+    folder: "3"
+    images:
+      - { file: "1.webp", alt: "Golang days" }
+      - { file: "2.webp", alt: "Golang days" }
+      - { file: "3.webp", alt: "Golang days" }
+      - { file: "4.webp", alt: "Golang days" }
+      - { file: "5.webp", alt: "Golang days" }
+
+- index: 3
+  icon: "🎵"
+  iconBg: "rgba(196,125,181,0.06)"
+  iconBorder: "rgba(196,125,181,0.15)"
+  tag: "Navaak Days"
+  tagColor: "#C47DB5"
+  heading: "Building a Music Platform, Then Knowing When to Leave"
+  paragraphs:
+    - "A friend's CEO recommended me to Navaak — a music streaming startup already live with 5k+ users. Leaving AEC after two months' notice was hard, especially for the team I'd built there. But Navaak felt like the future. The core problems were real: no CI/CD, manual track uploads, file decoding burning through resources. Everything needed automating from scratch."
+    - "Over two years I built queue-based automation, cloud storage management in Golang, a publisher panel for verified artists to submit tracks and licenses, live stream recording, and a personal recommendation engine in Python. I set up proper CI/CD for both backend and frontend releases and made the path smooth for new developers joining the team."
+    - "The Navaak days weren't just about code. I married my wife during this chapter — the wedding, building a home together, learning what it means to be responsible for someone beyond yourself. It was the time my life outside the screen finally caught up with the one inside it."
+    - "But the focus started drifting — YouTube publishing, Spotify distribution, too many directions at once. The challenge was gone. The people at Navaak were some of the best I've worked with and became dear friends, but I needed something new. I made a deal back at AEC to build a network monitoring system — SNMP, ICMP latency, CSV log ingestion at scale. InfluxDB for timeseries, Postgres for metadata, RabbitMQ for queuing, Golang with Gin as the REST API. New stack, new problem, game on."
+  gallery:
+    folder: "4"
+    images:
+      - { file: "1.webp", alt: "Navaak days" }
+      - { file: "2.webp", alt: "Navaak days" }
+
+- index: 4
+  icon: "🏠"
+  iconBg: "rgba(82,165,160,0.06)"
+  iconBorder: "rgba(82,165,160,0.15)"
+  tag: "Rechat"
+  tagColor: "#52A5A0"
+  heading: "First International Gig — Real Estate at Scale"
+  paragraphs:
+    - "After deploying the MTN network monitoring system, I got a call from a Dallas-based startup called Rechat. The CTO was Iranian and wanted an Iranian engineering team for smoother communication. My first international position — engineers in Iran, testers in the Philippines, support in Mexico and the US, marketers across the globe. Full team meetings in English. A million-dollar startup already growing fast."
+    - "The CTO handed me ownership of the MLS data provider system. Rechat was a real estate platform and listing sync was everything — over 20 MLS providers updating every minute. The stack was RabbitMQ, Postgres, and Node.js. Incidents were constant: data normalization failures, listings falling out of sync. I refactored the pipeline, built a monitoring layer, and brought incidents down to one or two a month."
+    - "After a year the challenge faded, and the company asked the team to relocate to Turkey to keep working with them. That wasn't my path. It was goodbye time — but the experience of shipping at scale for a US market from Tehran changed how I saw my own career."
+  gallery:
+    folder: "5"
+    images:
+      - { file: "1.webp", alt: "Rechat" }
+
+- index: 5
+  icon: "⛓️"
+  iconBg: "rgba(123,140,222,0.06)"
+  iconBorder: "rgba(123,140,222,0.15)"
+  tag: "Blockchain Journey"
+  tagColor: "#7B8CDE"
+  heading: "Smart Contracts, Spaghetti Code, and a Hard Goodbye"
+  paragraphs:
+    - "After Rechat I took time to learn Solidity — how smart contracts actually work on-chain, storage vs memory, CryptoZombies, the whole path. Within a month I had a meeting with Seira Yun, CEO of Socious, an early-stage Japanese startup. I became their first full-time developer. What I found was spaghetti — a broken PHP backend, a React app full of bugs, and part-time contributors who couldn't maintain it. We decided on a full backend rewrite in Node.js and Express, and within two months the new API was live and the app was functional again."
+    - "Then came the real challenge: deploying escrow smart contracts on Milkomeda, a Cardano wrapper chain. The contract went on-chain fast, but wiring it into the app — connect kits, Wagmi, transaction matching, fee distribution — was brutal given the messy frontend. My first deep dive into React, learned it the hard way. When Milkomeda got dropped, I rebuilt the whole thing on Cardano with Aiken. Over time I earned trust, refactored the entire backend and frontend, shipped a digital identity app, and led the team to build a real development culture."
+    - "I believed in Socious at first — Seira's passion for the SDGs was real. But I slowly realized the projects were just keys to unlock funding, not to solve real problems. Millions of ADA came through Catalyst, yet the business never grew. We were building features for grant proposals, not for users. My passion faded. The day after I said goodbye, the entire team was dismissed. The projects are still up, though. Make of that what you will."
+  gallery:
+    folder: "6"
+    images:
+      - { file: "1.webp", alt: "Blockchain journey" }
+      - { file: "2.webp", alt: "Blockchain journey" }
+
+- index: 6
+  icon: "👶"
+  iconBg: "rgba(212,168,83,0.06)"
+  iconBorder: "rgba(212,168,83,0.15)"
+  tag: "Fatherhood"
+  tagColor: "#D4A853"
+  heading: "Heaven in the Middle of Hell"
+  paragraphs:
+    - "On September 21, 2025, I became a dad. My son is the biggest achievement of my life — and he made me see the world completely differently. While my wife was pregnant, Israel was striking Iran, protests were met with killings, sanctions tightened, the internet went dark, and everyone was bracing for a US attack. All of that passing through my eyes while I looked at my innocent, sweet boy and thought — did we make the right call bringing a new life into this ugly world?"
+    - "In the middle of that chaos, I found something I'd never found in 35 years. A piece so big it reshapes everything around it. Even living in hell, holding him makes it heaven."
+    - "I'm looking for ways to guarantee his future now. I wanted to migrate long before he was born — to give him a peaceful start somewhere else. But years ago I refused two years of mandatory military service, and the regime won't give me a passport. I can't even leave the country. So for now, I build from here — for him."
+  gallery:
+    folder: "7"
+    images:
+      - { file: "1.webp", alt: "Fatherhood" }
+      - { file: "2.webp", alt: "Fatherhood" }
+      - { file: "3.webp", alt: "Fatherhood" }
+
+- index: 7
+  icon: "🚀"
+  iconBg: "rgba(240,194,123,0.08)"
+  iconBorder: "rgba(240,194,123,0.18)"
+  tag: "What's Next"
+  tagColor: "#C58D45"
+  heading: "Open for the World"
+  paragraphs:
+    - "Right now I'm building my own fitness app and helping others bring their ideas to life. After 10+ years of shipping for other people's visions, it feels right to build something of my own — and to pass on what I've learned along the way."
+    - "I'm also leaning hard into modern LLM models and AI agents. They make everything faster, but the tools still need to be used carefully and with real knowledge behind them. AI without understanding is just faster mistakes. I want to be the kind of engineer who uses these tools right — not as a shortcut, but as a multiplier."
+    - "The best code I've ever written was the code that helped someone. Let's write some more."
+  gallery:
+    folder: "8"
+    images:
+      - { file: "1.webp", alt: "What's next" }
+      - { file: "2.webp", alt: "What's next" }

@@ -1,0 +1,34 @@
+baseURL = "https://e-mahmoudi.me/"
+languageCode = "en-us"
+title = "Ehsan Mahmoudi — Blockchain Consultant & Software Architect | Hire Remote"
+
+[outputs]
+  home    = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+  page    = ["HTML"]
+
+[sitemap]
+  changefreq = "weekly"
+  priority   = 0.5
+
+[taxonomies]
+  tag = "tags"
+
+[params]
+  description   = "Blockchain consultant and software architect with 10+ years experience."
+  ga4ID         = "G-XE11SNJJ42"
+  calendarURL   = "https://calendar.app.google/j3UWRQwqfFKA1Z7C8"
+  twitterHandle = "@jeyem90"
+
+[markup.highlight]
+  style     = "monokai"
+  noClasses = true
+
+[markup.goldmark.renderer]
+  unsafe = false
+
+[pagination]
+  pagerSize = 10
+
+[permalinks]
+  blog = "/blog/:slug/"

@@ -1,0 +1,35 @@
+<!-- CONSULTING -->
+<section id="consulting">
+  <div class="section-inner">
+    <div class="section-tag reveal">Open Calendar</div>
+    <h2 class="section-title reveal">Let's <em>work together</em></h2>
+    <p class="section-desc reveal">
+      Consulting, code reviews, and team mentoring.
+      Blockchain, backend, scaling — pick a slot.
+    </p>
+
+    <div class="plans-grid reveal">
+      {{ range $.Site.Data.consulting.plans }}
+      <div class="plan-card{{ if .featured }} featured{{ end }}">
+        <div class="plan-title">{{ .title }}</div>
+        <div class="plan-price">{{ .price }}</div>
+        <p class="plan-desc">{{ .desc }}</p>
+        <a href="{{ $.Site.Params.calendarURL }}" target="_blank" rel="noopener noreferrer" class="plan-btn {{ .btnClass }}">Book →</a>
+      </div>
+      {{ end }}
+    </div>
+
+    <div class="skills-grid reveal">
+      {{ range $.Site.Data.consulting.skillGroups }}
+      <div class="skill-group">
+        <div class="skill-group-label">{{ .label }}</div>
+        <div class="skill-group-tags">
+          {{ range .tags }}
+          <span class="skill-tag">{{ . }}</span>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
