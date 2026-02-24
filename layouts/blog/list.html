@@ -12,7 +12,7 @@
         <time class="blog-post-date" datetime="{{ .Date.Format "2006-01-02" }}">
           {{ .Date.Format "January 2, 2006" }}
         </time>
-        <h2 class="blog-post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+        <h2 class="blog-post-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
         {{ with .Description }}<p class="blog-post-desc">{{ . }}</p>{{ end }}
         {{ with .Params.tags }}
         <div class="blog-post-tags">

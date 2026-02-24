@@ -56,20 +56,20 @@ static/
   _headers                  # HTTP headers for CDN
 static/css/style.css        # All styles — Hugo serves this at /css/style.css
 static/js/main.js           # All scripts — Hugo serves this at /js/main.js
-css/style.css               # Mirror of static/css/style.css (kept in sync manually)
-js/main.js                  # Mirror of static/js/main.js (kept in sync manually)
+static/js/blog.js           # Blog-specific scripts (progress bar, etc.)
 ```
 
 ## Architecture
 
 Content and data are separated: dynamic section content lives in `data/*.yaml` files, not in templates or JS. Partials iterate over site data via `$.Site.Data.*`.
 
-**Editing CSS/JS**: Always edit `static/css/style.css` and `static/js/main.js` — those are what Hugo serves. The root-level `css/` and `js/` are mirrors kept in sync manually.
+**Editing CSS/JS**: Edit `static/css/style.css` and `static/js/main.js` — those are the only source files, Hugo serves them directly.
 
 - **`layouts/partials/stories.html`** — `{{ range $.Site.Data.stories }}` renders each story accordion item with icon, paragraphs, and gallery images from `static/assets/stories/web/{folder}/`.
 - **`layouts/partials/consulting.html`** — `{{ range .Site.Data.consulting.plans }}` and `{{ range .Site.Data.consulting.skillGroups }}`.
 - **`layouts/partials/support.html`** — `{{ range .Site.Data.crypto.chains }}` for donation tabs.
-- **`js/main.js`** — Handles all interactivity post-render: accordion toggle, crypto chain tabs + clipboard copy, lightbox (loads full-size from `/assets/stories/full/`), Intersection Observer scroll-reveal, nav scroll effect, smooth scroll.
+- **`static/js/main.js`** — Handles all interactivity post-render: accordion toggle, crypto chain tabs + clipboard copy, lightbox (loads full-size from `/assets/stories/full/`), Intersection Observer scroll-reveal, nav scroll effect, smooth scroll.
+- **`static/js/blog.js`** — Blog-specific: reading progress bar.
 
 ## Blog Posts
 
