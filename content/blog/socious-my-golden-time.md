@@ -16,9 +16,14 @@ tags:
   - Career
   - Socious
 draft: false
+subtitle: "Rebuilding a Startup Backend, Two Blockchain Contracts, and What Happens When a Mission Runs Out of Runway"
 ---
 
-## The Trial, the Chaos, and a Month That Was Never Realistic
+This post is a technical and personal record of almost three years at Socious — what I built, what the team went through, and what I learned about engineering inside a mission-driven startup. If you're a recruiter or engineer, the technical decisions are in here. If you've worked at a startup that ran on belief longer than the runway warranted, the rest will feel familiar.
+
+## Part I — The Trial and the Rewrite
+
+### The Trial, the Chaos, and a Month That Was Never Realistic
 
 The first call didn't go well. July 2022 — I had a meeting with Seira Yun, CEO of Socious, and within a day or two I got rejected. Stack mismatch, they said. My background didn't line up with what they were looking for on paper. That should have been the end of it.
 
@@ -26,7 +31,7 @@ But apparently one of the technical consultants on the project saw something wor
 
 PHP wasn't my core language — it still isn't — but that never really mattered to me. Code follows logic. You read the models, you trace the conditions, you follow the data. In some ways it's cleaner than reading a requirements doc written by someone three steps removed from the actual system. Within a day or two I had a working picture of what Socious was: a simple hiring platform. Organizations posted projects or job positions, contributors found them and applied, and the app handled the connection flow. No payments, no complex state — just people and opportunities finding each other. The product was lean, but the network Seira had built around it on LinkedIn and social media was already real. That part was working.
 
-## Working with Japanese for the First Time — and a Timeline That Made No Sense
+### Working with Japanese for the First Time — and a Timeline That Made No Sense
 
 This was my first time working closely with Japanese people. My impression of Seira was immediate: the guy was a hard worker. Always online, always responsive — despite a massive time zone difference between Tehran and Tokyo, replies came fast. That part genuinely impressed me.
 
@@ -38,7 +43,7 @@ Then came a meeting I still remember clearly. Seira laid it out: we need to migr
 
 Those weeks had one rhythm: develop, climb, sleep. No family time, no rest, no margin. I gave everything to it — partly out of drive, partly out of the low-grade anxiety of being on trial with something to prove. I was lucky Seira mostly deferred to Lalo technically. Because Lalo and I were aligned: keep it simple, keep it fast.
 
-## Building Something Clean From Something Broken
+### Building Something Clean From Something Broken
 
 We went with Node.js and Koa — not Express. Koa's async-first design fit the way we thought about the middleware stack, and it kept things lighter. One early decision we locked in hard: no TypeScript. Neither of us wanted it. TypeScript adds a layer of ceremony that slows you down when you're trying to move, and at that point we weren't building a framework, we were building a product. We wanted to write what we meant and ship it.
 
@@ -48,7 +53,7 @@ The structure was domain-driven from the start: each feature area got its own ro
 
 The repo is still live and maintained: [github.com/socious-io/socious-api](https://github.com/socious-io/socious-api). What we built in that frantic first month is the foundation it's still running on.
 
-## The Team Split — and Putting the Brain in the Database
+### The Team Split — and Putting the Brain in the Database
 
 The division of labour was clean. I owned the backend entirely. Lalo and James covered the other side — James as the FE/mobile developer, working through the existing React app and refactoring it in parallel with the new API. Lalo sat above both of us: reviewing code, coordinating API contracts between my work and James's, and making the calls on direction. He handed off execution on both sides and focused on keeping us aligned.
 
@@ -64,7 +69,7 @@ The schema also carried the dispute system — full event sourcing for conflict 
 
 Lalo reviewed everything. He had high standards and wasn't shy about pushing back on application code that wasn't clean. The SQL work got a different response — he called it out specifically as strong work. From someone with his bar, that landed.
 
-## When the Team Got Smaller
+### When the Team Got Smaller
 
 It didn't last long. Tensions between Lalo and Seira started showing up in daily meetings — not loud, but visible. The kind of friction that doesn't resolve, it just builds. Eventually Lalo left the team. No drama announcement, he was just gone. That left me and James as the only engineers — each responsible for one side of the product, no CTO layer above us anymore.
 
@@ -72,7 +77,9 @@ Seira moved quickly to expand the frontend side. He had more work queued than Ja
 
 What kept it manageable was the culture. There were no set hours. The only hard requirement was the daily meeting — everything else was async. That gave me a rhythm I could actually live with. Mornings I wasn't productive anyway, so I'd go to the gym, climb, take care of myself. After lunch, a short nap, then I'd sit down and work until late into the night. Easily ten-plus hours most days, but on my own schedule and without anyone watching the clock. No complaints from either side — I delivered, they didn't ask how.
 
-## Sajad, a One-Month Promise, and Three Months of Waiting
+## Part II — Contracts, Team Churn, and Kish
+
+### Sajad, a One-Month Promise, and Three Months of Waiting
 
 After about a month, the API had surpassed the old PHP backend in clarity and capability. But it carried the scars of moving fast — e2e tests existed but didn't cover enough scenarios, some integrations were still rough, documentation was thin. We knew the debt was there. The second month was partly about chipping away at it: stabilizing integrations, filling gaps, making the API surface solid enough for James and the new FE developers to build against confidently.
 
@@ -84,7 +91,7 @@ Around that time a new core developer joined the frontend — Sajad, Iranian, ba
 
 I pushed back. I'd just lived through a backend rewrite and knew what "one month" actually looks like when you're rebuilding something from scratch while the product is still moving. Seira trusted Sajad's confidence. Three months later we still didn't have the new frontend at the level the old one was already at. I didn't say anything about it — there was no point. The timeline had already slipped and everyone could see it.
 
-## Milkomeda, Hardhat, and Writing the Escrow Contract
+### Milkomeda, Hardhat, and Writing the Escrow Contract
 
 While the frontend situation dragged on, I kept moving on the backend. E2E test coverage improved, the payment flow came together, and I started on the escrow smart contract work — which was the piece I was most interested in.
 
@@ -92,7 +99,7 @@ We already had a contract, but it wasn't properly aligned with our actual requir
 
 Milkomeda had problems. The testnet especially — transactions failing intermittently, network instability that made it hard to tell whether an issue was in our code or the chain itself. To separate our bugs from the network's, I deployed the same contract to Sepolia in parallel. Sepolia was stable and predictable. That comparison made it clear quickly: most of the failures weren't ours. The network just wasn't reliable enough yet. We documented it and worked around it.
 
-## The Conflict That Got Us Sent to Kish
+### The Conflict That Got Us Sent to Kish
 
 On the FE side, when I finally got a proper look at Sajad's new work, one thing stood out immediately: no CSS framework. Every style written from scratch. For a backend developer already stretched thin, being asked to reason about or contribute to that codebase was a real problem. I tried to bridge it — implemented RainbowKit for wallet connect, integrated the escrow dApp pieces into the frontend where I could — but it was slow going on ground I didn't own.
 
@@ -102,7 +109,7 @@ Seira saw it and made a call: he bought all of us flights to Kish. Me and my wif
 
 Something shifts when you meet people in person. The conflict didn't disappear, but it lost its edge. We did things together, had meals, got away from the screen. I told Sajad directly — everything between us is about work, nothing is personal. It landed. We didn't become best friends but we came back as people who respected each other. The communication issues didn't fully go away, but they got quieter, and when they came up we handled them differently.
 
-## The Revolving Door
+### The Revolving Door
 
 Back home, the search for more frontend help continued. I introduced a couple of developers — neither fit. Technically fine, but the communication pattern on the team was specific and not everyone adapted to it. After a while I introduced my sister Sanaz. She had three to four years of frontend experience and, more importantly, could actually communicate. She came in, got up to speed, and tried to make it work alongside Sajad.
 
@@ -116,13 +123,13 @@ To make future frontend integration smoother I extracted all the API types and H
 
 Seira found another frontend developer not long after. Iman ran the interview himself and gave the green light — that was Marjan. She was precise, reliable, the kind of developer who works best when the path and communication are clear. Give her that and she delivered without noise. The team finally had a stable frontend core.
 
-## The PM Problem
+### The PM Problem
 
 With the engineering team in better shape, a different issue moved to the front: project management. Priorities shifted without clear reasoning. Some weeks the team was idle waiting for decisions; other weeks everything was urgent at once. Timelines appeared in meetings that had no grounding in what the team could actually deliver.
 
 Seira was doing the PM work himself, on top of everything else a CEO carries. He was genuinely one of the hardest working people I've encountered — always on, always responsive. But attention split that many ways doesn't produce good prioritisation. It wasn't a character problem, it was a structural one. One person cannot own product strategy, fundraising, external relationships, team management, and sprint planning simultaneously and do all of them well. The team felt it. We started talking about bringing in a dedicated PM — someone whose only job was to sit between the business and the engineering side and keep the two in sync.
 
-## The PM Who Made Things Worse
+### The PM Who Made Things Worse
 
 Ashkan joined as that PM. He came in, looked at the board, and tried to bring some structure to the sprints. The first couple of cycles he was involved in felt marginally more organised on the surface — but the underlying problems didn't move. Task definitions stayed vague. Priority calls still didn't reflect what the team actually needed to work on. If anything, the added process created more overhead without the clarity that should justify it.
 
@@ -132,13 +139,15 @@ I didn't stay quiet about it. I told Seira and Ashkan directly how I felt — th
 
 What happened next is one of the things I genuinely respected about how Seira ran the team. His hiring culture had a built-in check: every new person went through a one-month trial, and at the end the whole team submitted individual feedback ratings — privately, honestly. It was a real signal, not a formality. When Ashkan's trial period closed, me, Marjan, and Azin had all given negative feedback independently. Seira didn't override it. Ashkan was let go. The process worked exactly as it was supposed to — it just took a month and one unnecessary resignation to get there.
 
-## The Team That Finally Held
+### The Team That Finally Held
 
 After everything the frontend side had been through, me and Marjan were the stable core of engineering, with Azin covering QA. We ran interviews looking for another frontend developer but the bar had shifted — we'd learned the hard way that technical skill alone wasn't enough. Communication mattered as much as code. We also wanted someone who spoke Persian, which narrowed the pool but made day-to-day collaboration genuinely easier.
 
 The answer was already in front of me. With Sajad gone and Marjan as a completely different working dynamic, I suggested bringing Sanaz back. She came back, settled in alongside Marjan quickly, and it worked. No friction, no territory. The team was finally in a shape that felt right.
 
-## The Digital Identity Wallet — and a Technology That Wasn't Ready
+## Part III — The Wallet and Cardano
+
+### The Digital Identity Wallet — and a Technology That Wasn't Ready
 
 With a stable team, we took on the most technically ambitious thing Socious had attempted: a self-sovereign identity wallet. The idea was to give Socious users a personal credential wallet — something they owned, that could hold verifiable claims about their work history, skills, and contributions, anchored on Cardano. Real digital identity, not just a profile page.
 
@@ -148,7 +157,7 @@ The honest assessment: the technology wasn't ready. Documentation had gaps that 
 
 The harder truth underneath all of it: the users weren't asking for this. Activity on Socious was still low, and a credential wallet was a sophisticated feature for a platform still trying to reach critical mass of people doing basic things on it. We were building it because Catalyst funding had a roadmap attached, and the roadmap had a digital identity milestone. The feature was real work, genuinely interesting technically — but the timing was driven by grant deliverables, not user demand. That tension was starting to show.
 
-## A New Developer, No Warning, and a Convention That Wasn't Negotiable
+### A New Developer, No Warning, and a Convention That Wasn't Negotiable
 
 One morning in the daily meeting there was a new face. No prior conversation, no heads up — Seira had hired a backend developer and announced it after the fact. His name was Oledge, Russian, young, with real Solidity experience and a Node.js background. His task was the referral system: if someone referred a contributor who then got hired on a project, the escrow release needed to split the payment three ways — contributor's share, Socious platform fee, and a referral fee to whoever made the introduction.
 
@@ -166,7 +175,7 @@ Oledge's one-month trial closed around the same time. And as a footnote that I'l
 
  Seira ran the usual feedback round. Most of the team rated him poorly. He was let go. The frontend PR stayed open, unmerged, the wallet address problem unsolved.
 
-## The Thing I Couldn't Ignore Anymore
+### The Thing I Couldn't Ignore Anymore
 
 That whole episode — the referral system, the PR, the consultant call, Oledge's exit — crystallised something I'd been sensing for a while but hadn't fully named.
 
@@ -176,7 +185,7 @@ The referral system was the clearest example yet. Who was it for? Socious at tha
 
 The platform needed traction, not features. But traction is harder to put on a grant deliverable than a smart contract deployment.
 
-## Back in the Wallet — KYC, Mnemonics, and a CV in My Inbox
+### Back in the Wallet — KYC, Mnemonics, and a CV in My Inbox
 
 While that was all settling, I was still deep in the identity wallet work. We'd added a KYC layer to make the wallet genuinely meaningful — before a user could hold any credentials, they had to pass a third-party identity verification through Veriff. Once cleared, a KYC verifiable credential was issued to their wallet as the foundation. Only then could other credentials be added on top. It was the right design: a wallet full of unverified claims is just a profile page with extra steps.
 
@@ -190,13 +199,13 @@ The Haskell point made me think of something I'd noticed for a while. Seira had 
 
 This time, unlike with Oledge, I actually met Elaine before any decision was made. Oledge arriving unannounced had left a mark. Elaine came across exactly as Seira described — native English speaker, clearly sharp, and when I asked her about the PM side she was honest that she'd been studying it seriously and felt comfortable taking it on. She talked through her previous experience well. I gave positive feedback. We badly needed a real PM, she had genuine technical depth, and she seemed like someone who could hold both roles without dropping either.
 
-## Elaine, Part-Time and More Present Than Anyone Full-Time
+### Elaine, Part-Time and More Present Than Anyone Full-Time
 
 Elaine joined while still finishing up at her previous job — part-time from the start. Within days it was obvious the board was in different hands. She restructured it, wrote proper ticket descriptions, and started tracking UI/UX issues with a level of attention the team hadn't had before. The gap between what Marjan and Sanaz were building and what the design actually specified had always been a source of slow drift — small mismatches that compounded. Elaine sat in that gap and closed it. She communicated between design intent and implementation reality constantly, catching things before they became rework.
 
 She felt full-time. The output, the responsiveness, the way things moved — none of it reflected someone at half capacity. It was one of the cleaner additions the team had seen in a long time.
 
-## The Move, the Illness, and a Role That Slowly Slipped Away
+### The Move, the Illness, and a Role That Slowly Slipped Away
 
 Her trial closed with positive feedback across the board — specifically on the PM side, which was the gap we needed filled. The plan was clear: move to Japan, settle in, then split her time between PM work and building the Aiken escrow contract to replace Milkomeda.
 
@@ -206,7 +215,7 @@ There was also a project I only knew about peripherally — something called Har
 
 After seven months Seira ran the team feedback session. The result was different from her trial. The feedback on both the code output and the PM work came back negative. She had been placed in a dual role — technical and organisational — and neither had landed the way the team needed. It wasn't a question of effort. It looked more like a mismatch between the role as it was defined and where her actual strengths were.
 
-## The Wallet Ships, and Everything Piles Up
+### The Wallet Ships, and Everything Piles Up
 
 After seven or eight months the wallet was in a workable shape. Not perfect — the mediator would occasionally freeze, agent message delivery to the wallet would stall, connections sometimes dropped without clear reason. The kind of issues that are painful to debug because they live at the boundary between your code and a platform you don't control. But the core was there and functional.
 
@@ -220,7 +229,7 @@ Sanaz knew a developer who could help — MohammadHossein, someone with a solid 
 
 Around this time Seira gave me the title of dev lead. All technical decisions sat with me — architecture, hiring input, code standards, what got built and how. It formalised what had largely been the reality for a while, but putting a name to it changed the weight of it.
 
-## Finally, Golang — and Picking Up the Aiken Contract
+### Finally, Golang — and Picking Up the Aiken Contract
 
 The situation coming into this period was dense. Base Socious still had features to deliver. Shin needed to be built from scratch. The Aiken escrow contract was unfinished and blocking a Catalyst fund release. The wallet was off my plate in the sense that the core was done — we were moving forward with mediator and SDK updates that we hoped would resolve the remaining freeze and connection issues — but I was already carrying enough.
 
@@ -234,7 +243,7 @@ MohammadHossein came in with clear ownership: the dispute system that had been o
 
 On the Shin frontend, Marjan and Iman picked up the design and started building. I told them not to wait for the real API — instead, build an API proxy layer, define their own types, and work against mock data. Once I had the actual API ready, the plan was to chain real data in and wrap the type differences with a transfer layer. Not a perfect architecture, but a deliberate tradeoff: I knew the Golang infrastructure would take time to get right, and if the frontend had to wait on actual API shapes before they could start, we'd miss the timeline. Running both in parallel, even with a seam to bridge later, was faster than serialising the work.
 
-## The Best Period We Ever Had — and What Was Missing From It
+### The Best Period We Ever Had — and What Was Missing From It
 
 The Golang structure came together. Shin's APIs took shape and I wrote them test-first — TDD throughout, which slowed the start but meant the surface was solid before anyone else touched it. Once the API layer was stable I called MohammadHossein to get the Shin dev environment pipeline ready, then switched to the frontend side myself — adding types, wiring up the API calls, and handing off to Marjan and Iman to connect the rest.
 
@@ -246,7 +255,7 @@ But underneath it there was something none of us were saying out loud. We were b
 
 We pushed those thoughts aside. Seira believed in it. He'd been building toward this for years, had the network, had the funding, had the mission. We trusted his read of where it was going and kept our heads down. That's what you do when you respect a CEO and you've invested that much of yourself into the work. You push the doubt out and deliver what's asked. For a while, that's enough.
 
-## Aiken, UTXO, and Learning a Completely Different Model
+### Aiken, UTXO, and Learning a Completely Different Model
 
 The Aiken contract was one of those tasks that looks contained from the outside and reveals its real size once you're inside it. Seira's position was clear: we're not hiring for this, learn it and ship it. I was dev lead now. That meant the call was mine, and the work was mine.
 
@@ -262,7 +271,7 @@ Cardano is built on a fundamentally different model. There is no deployment in t
 
 This changes everything about how you reason through a smart contract. There's no "call this function to release payment." There's "construct a transaction that spends the locked UTXO, attach the redeemer that proves intent, and let the validator decide." The logic isn't imperative, it's declarative. Aiken itself reflects this — it's a functional language, influenced by Elm and Haskell, designed to express validation logic cleanly. Once the model clicked, the language started making sense. But getting there took time.
 
-## Handover, Conventions, and Clearing the Path for MohammadHossein
+### Handover, Conventions, and Clearing the Path for MohammadHossein
 
 While I was deep in the Aiken learning curve, the broader Shin work was still moving. I'd made a deliberate call about how to handle MohammadHossein's onboarding — not just throw him into open tickets, but make sure he understood why things were built the way they were before he started changing them.
 
@@ -270,7 +279,7 @@ The codebase had conventions that weren't obvious from a quick read. The `identi
 
 So I walked him through the structure. Not documentation, not a wiki — a real conversation about why the architecture looked the way it did, what the existing Socious backend had taught us, and where Shin was supposed to go. He had the background to absorb it quickly. The dispute system work and the CI/CD pipeline work were both constrained enough that he could go deep without touching the parts that needed context he didn't have yet. It was a deliberate handover — give him ownership of the right things first, earn familiarity with the rest.
 
-## The Real Hard Part: UTXOs, Locked Assets, and Knowing Exactly What to Spend
+### The Real Hard Part: UTXOs, Locked Assets, and Knowing Exactly What to Spend
 
 Understanding the UTXO model was one thing. Applying it to a real escrow flow was something else entirely.
 
@@ -286,7 +295,7 @@ This shaped the entire data model. The backend needed to know not just that a pa
 
 Getting all of that right — the datum structure, the redeemer, the UTXO tracking, the transaction construction — was what took the time.
 
-## CIP-30, RainbowKit, and a UX Problem Worth Solving
+### CIP-30, RainbowKit, and a UX Problem Worth Solving
 
 One thing I was determined not to let slip through was the wallet connection experience. We already had RainbowKit in place for EVM chains and it was clean — a consistent UI, broad wallet support, one flow for users regardless of what they were connecting. Splitting that into a separate Cardano-specific interface would have been the easy choice. It also would have made the product feel like two different apps stitched together.
 
@@ -298,7 +307,9 @@ That part I was genuinely proud of. It's the kind of solution that disappears in
 
 Two to three months after picking up the contract work, the beta was out.
 
-## Growth Signals, Argentina, and a Team Starting to Fray
+## Part IV — Growth, War, and the End
+
+### Growth Signals, Argentina, and a Team Starting to Fray
 
 Around this period the business side was visibly accelerating. The treasury was growing — new funding rounds, new Catalyst tranches, the numbers moving in the right direction. Seira took the business team to Argentina to present Shin at universities, building partnerships, expanding the network. Expensive events toward the end of 2024. The kind of momentum that makes you feel like the inflection point is close.
 
@@ -314,7 +325,7 @@ I found out during this period that Elaine — who had been part-time for much o
 
 That's not a criticism of Elaine as a person. It's an observation about what the system does — and about who gets to benefit from the parts of that system that are invisible. The Iranian engineers I've worked with over my career have, on average, a depth of technical understanding that consistently surprises the people who hire them at a discount. We're not cheap because we're less capable. We're cheap because there's no other option, and the people setting the terms know it.
 
-## The Announcement
+### The Announcement
 
 Trying to hire again after Marjan left was its own frustration. Four open positions, including another frontend developer because the backlog wasn't getting smaller. Every time I found a candidate I felt good about, Seira would stall or redirect — other priorities, budget questions, something. The hires didn't come through.
 
@@ -326,7 +337,7 @@ I was the first person who needed to hear that. For more than two years I had be
 
 Saying it out loud to the team was also saying it to myself. We were not going to sprint our way to product-market fit. That's not how it works, and I'd spent long enough pretending otherwise.
 
-## Joshua
+### Joshua
 
 The PM situation never fully stabilised. Seira had been trying to solve it by pulling people from the growth team into a coordination role — reasonable in theory, uneven in practice. Most of them didn't have the technical context to sit between engineering and product effectively, and adding a layer of process without that context just creates more noise.
 
@@ -336,7 +347,7 @@ He didn't become a technical PM. But he became something the team had rarely had
 
 Joshua turned out to be that person. It took a while to see it, but once it was visible it was hard to miss.
 
-## Three Platforms, One Auth Layer, and a V3
+### Three Platforms, One Auth Layer, and a V3
 
 The next wave of work arrived in two pieces that were separate on the surface but deeply connected underneath.
 
@@ -356,7 +367,7 @@ Rewriting that logic on top of the existing Node.js codebase would have meant un
 
 Two parallel builds, one shared foundation.
 
-## Socious Fund — Simple by Design, Complicated by Reality
+### Socious Fund — Simple by Design, Complicated by Reality
 
 Once the Account Center backend was stable enough to build against, I moved to Fund. The product itself was straightforward — a crowdfunding platform. I wired up the Account Center auth the same way I'd done for Shin, brought the core API package into the frontend using the same pattern, and we were moving quickly. The shape of the work was familiar by now.
 
@@ -366,7 +377,7 @@ The other piece was impact points — a system that had existed in Socious prope
 
 It was an elegant loop on paper. The problem with it only became visible once the platform was live and we could look at who actually held points. Socious hadn't reached the user scale that would spread impact points across a real population. The team itself — Seira, the people around him, the early insiders — held a disproportionate share. Which meant that in a vote, a handful of people inside Socious could move a project from nowhere to the top. The system was designed for a world where the platform had thousands of active contributors accumulating points through real work. In the world we actually had, it was a lever that sat mostly in one set of hands. We didn't see that clearly enough before launch.
 
-## Azin Leaves, Kish Again, and Shaunt
+### Azin Leaves, Kish Again, and Shaunt
 
 Azin had been our QA throughout — methodical, reliable, the person who caught the things automated tests couldn't. She migrated to Europe before Fund launched, and the gap was real. Manual testing had always been the safety net between staging and production, and losing it right before a launch wasn't ideal timing.
 
@@ -374,7 +385,7 @@ We worked through Christmas. Seira gave the team three days off, which he announ
 
 Around this time I brought someone new to Seira's attention. I knew him from the climbing community — a smart, young, genuinely sharp person who was as passionate about coding as he was about the wall. We'd talked about stacks, about what he was building on his own, about how he thought about software. He had the kind of curiosity that doesn't need to be forced. I suggested to Seira to bring him on as a junior intern — not to build features, but to do what we'd needed for a long time: manual testing and, eventually, automated FE tests. Shaunt joined, started getting his hands into the apps, testing flows, poking at edge cases. After a while he was tracing bugs himself and fixing small issues independently. Exactly the trajectory I'd hoped for.
 
-## The Nowruz Pilot
+### The Nowruz Pilot
 
 On Nowruz — Iranian new year — Seira announced the plan for Fund's pilot round: 10,000 dollars distributed to the top three winning projects, funded through donations collected on the platform itself.
 
@@ -386,7 +397,7 @@ The timeline slipped almost immediately. One month became two. After two months 
 
 It worked, technically. The round ran, the winners were paid, the platform functioned. But the gap between what was promised publicly and what the platform could actually generate told the same story the user numbers had been telling for a long time. The business team could build events and generate momentum — Seira was genuinely skilled at that — but the platform underneath it wasn't deep enough yet to sustain what was being promised on top of it.
 
-## Building Through a War
+### Building Through a War
 
 After the pilot, the work continued. Sanaz moved to Account Center's frontend — the interface that would let users manage their identity across all three platforms: update profile information, connect wallets, connect bank accounts, view their impact history. Everything that needed to exist in one place rather than scattered across Socious, Shin, and Fund. Iman stayed on Fund, working through the UX and UI improvements that had been noted during the pilot round and needed to be addressed before Round 1 launched for real.
 
@@ -414,7 +425,7 @@ When I look back at that stretch now, what I feel isn't pride exactly. It's some
 
 We got Fund ready for Round 1. Account Center moved forward. The code didn't know there was a war.
 
-## Half a Million, Midnight, and the Worst Timing Possible
+### Half a Million, Midnight, and the Worst Timing Possible
 
 Round 1 closed with half a million dollars raised in three months. After a pilot that had barely scraped seven thousand, that number was genuinely shocking. Something had worked — the business push, the impact of the war on visibility, the projects that had registered through the platform mid-round, some combination of all of it. For a moment it felt like the inflection point everyone had been waiting for had actually arrived.
 
@@ -436,7 +447,7 @@ My son was born. I took one week.
 
 Then I went back to Midnight.
 
-## The Round 1 Results and What Was Underneath Them
+### The Round 1 Results and What Was Underneath Them
 
 When Seira announced the Round 1 winners, the reaction in the general channel wasn't celebration. People were asking questions. Some were calling it a scam.
 
@@ -454,7 +465,7 @@ I don't believe it was malicious. I think Seira saw a prize pool that wouldn't c
 
 The flaw we had seen early and left in place had just become visible to everyone.
 
-## The End
+### The End
 
 People threatened legal action. Seira moved quickly — he announced the round was cancelled and refunded every single donation, personally. He followed through. But people also demanded the prize pool, and they were loud about it.
 
@@ -493,3 +504,16 @@ The projects are still live. Make of that what you will.
 ---
 
 *This is one perspective. I was an engineer, not a founder — I saw the product and the team clearly, but the business side had dimensions I never had full visibility into. Timelines blur in memory, sequences shift, and some of what I've written here may be imprecise in ways I can't fully account for. This is how I experienced it, not a complete record of what happened.*
+
+## What I Actually Built
+
+For anyone reading this as a portfolio reference — here is what shipped over almost three years:
+
+- **Backend rewrite (Node.js/Koa, no ORM)** — Rebuilt the Socious platform from PHP from scratch. Business logic in PostgreSQL triggers and functions. Full-text search, atomic counters, dispute event sourcing — all in the schema. The repo is still maintained: [socious-io/socious-api](https://github.com/socious-io/socious-api).
+- **Solidity escrow contract on Milkomeda** — Milkomeda is an EVM-compatible sidechain bridged to Cardano. First production smart contract I shipped at Socious.
+- **Digital identity wallet** — Self-sovereign identity using W3C DIDs and Verifiable Credentials on Cardano, built on Identus (formerly Atala PRISM). KYC layer, mnemonic backup, credential issuance and presentation.
+- **Backend migration to Golang** — Greenfield service (Shin) built in Go with an internal library structure designed to carry forward across future platforms.
+- **Cardano escrow in Aiken** — Rewrote the escrow contract natively using Cardano's UTXO model. Full UTXO tracking on the backend to support precise transaction construction at release time.
+- **CIP-30 to EIP-1193 adapter** — Built a transformer so Cardano wallets (Lace, Nami, Eternl) could connect through RainbowKit alongside MetaMask. Extracted as a standalone package: [socious-io/cardano-bridge](https://github.com/socious-io/cardano-bridge).
+- **Three platforms, one Account Center** — Socious (hiring), Shin (credential dashboard), Socious Fund (crowdfunding). Unified auth layer across all three for V3.
+- **Infrastructure** — AWS and GCP, Docker, CI/CD pipelines. Still running in production.

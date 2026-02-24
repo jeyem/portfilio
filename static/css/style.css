@@ -508,6 +508,10 @@ footer .links a:hover { color: var(--accent); }
   font-family: 'Instrument Serif', serif; font-size: 2.6rem;
   line-height: 1.15; margin: 0.8rem 0 1.2rem; font-weight: 400;
 }
+.blog-single-subtitle {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem;
+  color: var(--accent); letter-spacing: 0.03em; margin: 0 0 1.2rem;
+}
 .blog-single-desc {
   font-size: 1rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.4rem;
   max-width: 620px;
@@ -521,12 +525,13 @@ footer .links a:hover { color: var(--accent); }
   margin-top: 4.5rem; margin-bottom: 1.2rem;
   padding-top: 1.75rem;
   border-top: 1px solid var(--border);
-  color: var(--ink);
+  color: var(--accent);
   scroll-margin-top: 5.5rem;
 }
 .blog-single-content h3 {
-  font-family: 'Instrument Serif', serif; font-size: 1.2rem;
-  font-weight: 400; margin: 2.5rem 0 0.8rem; color: var(--fg);
+  font-family: inherit; font-size: 1.35rem;
+  font-weight: 600; line-height: 1.4;
+  margin: 3rem 0 0.8rem; color: var(--fg);
   scroll-margin-top: 5.5rem;
 }
 .blog-single-content p { margin-bottom: 1.5rem; line-height: 1.9; font-size: 1.0625rem; color: var(--fg); }

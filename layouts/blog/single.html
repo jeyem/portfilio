@@ -8,6 +8,7 @@
       <a href="/blog/" class="blog-back">← All posts</a>
       <time class="blog-post-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
       <h1 class="blog-single-title">{{ .Title }}</h1>
+      {{ with .Params.subtitle }}<p class="blog-single-subtitle">{{ . }}</p>{{ end }}
       {{ with .Description }}<p class="blog-single-desc">{{ . }}</p>{{ end }}
       {{ with .Params.tags }}
       <div class="blog-post-tags">
@@ -18,7 +19,6 @@
     <div class="blog-single-content">
       {{ .Content }}
     </div>
-
   </article>
 </div>
 {{ end }}
