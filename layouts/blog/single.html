@@ -1,11 +1,12 @@
 {{ define "main" }}
-<article class="blog-single-wrapper">
-  <div class="section-inner">
+<div class="blog-progress-bar" id="blogProgress"></div>
+
+<div class="blog-single-wrapper">
+  <article class="blog-single-layout">
+
     <header class="blog-single-header">
       <a href="/blog/" class="blog-back">← All posts</a>
-      <time class="blog-post-date" datetime="{{ .Date.Format "2006-01-02" }}">
-        {{ .Date.Format "January 2, 2006" }}
-      </time>
+      <time class="blog-post-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
       <h1 class="blog-single-title">{{ .Title }}</h1>
       {{ with .Description }}<p class="blog-single-desc">{{ . }}</p>{{ end }}
       {{ with .Params.tags }}
@@ -14,7 +15,11 @@
       </div>
       {{ end }}
     </header>
-    <div class="blog-single-content">{{ .Content }}</div>
-  </div>
-</article>
+    <div class="blog-single-content">
+      {{ .Content }}
+    </div>
+
+  </article>
+</div>
 {{ end }}
+

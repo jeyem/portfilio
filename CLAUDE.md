@@ -4,91 +4,107 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio website for Ehsan Mahmoudi (e-mahmoudi.me). Single-page static site built with vanilla HTML5, CSS3, and JavaScript ES6+ — no framework, no build system, no dependencies.
+Personal portfolio website for Ehsan Mahmoudi (e-mahmoudi.me). Built with **Hugo** static site generator, vanilla CSS, and vanilla JavaScript. No JS framework, no CSS preprocessor.
+
+## Development Commands
+
+```bash
+# Dev server (drafts included, live reload)
+npm run dev          # hugo server --buildDrafts --disableFastRender
+
+# Production build → dist/
+npm run build        # hugo --minify --destination dist
+```
+
+Hugo must be installed (`hugo version` to check). No other dependencies.
 
 ## Structure
 
 ```
-/
-├── index.html                          # HTML structure + head metadata + GA4
-├── css/style.css                       # All styles
-├── js/main.js                          # All scripts (accordion, tabs, lightbox, etc.)
-├── assets/
-│   ├── avatar.png                      # Profile image, used as favicon + og:image
-│   ├── Ehsan_Mahmoudi_CV.pdf           # Downloadable resume
-│   └── stories/
-│       ├── web/[1-8]/*.webp            # Gallery thumbnails (480px, ~708KB total)
-│       └── full/[1-8]/*.webp           # Lightbox full-size (1200px, ~3.5MB total)
-├── robots.txt                          # Crawl directives
-├── sitemap.xml                         # Single-page sitemap
-├── .gitignore
-└── CLAUDE.md
-```
-
-There is no test suite.
-
-## Development
-
-Serve with any static file server (external CSS/JS won't load via `file://`):
-```
-python3 -m http.server 8000
-```
-
-Build (copies files to `dist/` for deployment):
-```
-npm run build
+hugo.toml                   # Site config (baseURL, GA4 ID, calendar URL, permalinks)
+content/
+  _index.md                 # Homepage front matter (title, description)
+  blog/
+    _index.md               # Blog list description
+    *.md                    # Blog posts
+layouts/
+  _default/baseof.html      # Base template (nav, lightbox overlay, main.js)
+  index.html                # Homepage: assembles hero/stories/consulting/support partials
+  partials/
+    head.html               # <head> — SEO, OG, structured data, GA4, Google Fonts
+    nav.html
+    hero.html
+    stories.html            # Renders $.Site.Data.stories
+    consulting.html         # Renders $.Site.Data.consulting
+    support.html            # Renders $.Site.Data.crypto
+    footer.html
+  blog/
+    list.html               # Blog index
+    single.html             # Blog post
+data/
+  stories.yaml              # 8 accordion stories (index, icon, tag, paragraphs, gallery)
+  consulting.yaml           # Pricing plans + skill groups
+  crypto.yaml               # Donation chain addresses
+static/
+  assets/
+    avatar.png              # Profile image, favicon, og:image
+    Ehsan_Mahmoudi_CV.pdf
+    stories/
+      web/[1-8]/*.webp      # Gallery thumbnails (480px)
+      full/[1-8]/*.webp     # Lightbox full-size (1200px)
+  robots.txt
+  _headers                  # HTTP headers for CDN
+static/css/style.css        # All styles — Hugo serves this at /css/style.css
+static/js/main.js           # All scripts — Hugo serves this at /js/main.js
+css/style.css               # Mirror of static/css/style.css (kept in sync manually)
+js/main.js                  # Mirror of static/js/main.js (kept in sync manually)
 ```
 
 ## Architecture
 
-- **`index.html`** — Head metadata (SEO, Open Graph, structured data with Person + Service schemas, Google Fonts, GA4 `G-XE11SNJJ42`) and semantic HTML body sections: nav, hero, stories (accordion with image galleries), consulting (pricing cards + skills grid), support (crypto donations — ETH, BTC, BSC, XRP, ADA), lightbox overlay, footer.
-- **`css/style.css`** — CSS with custom properties defined at `:root` (dark theme: `--bg: #101010`, `--fg: #E2DDD6`, `--accent: #E8734A`). Responsive breakpoints at 900px and 480px. Includes: story gallery styles, lightbox overlay, skills grid (4-col → 2-col on mobile), plan card flexbox alignment.
-- **`js/main.js`** — Vanilla JS for nav scroll effects, story accordion toggling, crypto chain tab switching (5 chains), clipboard copy, lightbox (click to open, click/Esc to close, loads full-size from `/full/`), Intersection Observer scroll-reveal animations, smooth scroll for nav links.
+Content and data are separated: dynamic section content lives in `data/*.yaml` files, not in templates or JS. Partials iterate over site data via `$.Site.Data.*`.
 
-## Stories (8 accordion items, data-story 0-7)
+**Editing CSS/JS**: Always edit `static/css/style.css` and `static/js/main.js` — those are what Hugo serves. The root-level `css/` and `js/` are mirrors kept in sync manually.
 
-0. **Origin Story** — IT bachelor's, C#, mentor → Linux/FSF, GPL3 contributions, PHP → Python/Django, AI master's (incomplete), first job at Cvas (Flask/MongoDB)
-1. **Rock Climbing** — Basketball injuries → fitness (7 years) → mountaineering (Damavand summit) → rock climbing, 8a sport, top 10% worldwide
-2. **Golang & Low-Level** — Diod Connection (one-way UDP, Reed-Solomon), fell for Golang concurrency, AEC Java→Golang rewrite (1GB/min Cassandra)
-3. **Navaak Days** — Music streaming startup (5k+ users), CI/CD, cloud storage, publisher panel, recommendation engine, marriage, left when focus drifted → back to AEC (SNMP/ICMP monitoring, InfluxDB/Postgres/RabbitMQ/Gin)
-4. **Rechat** — Dallas startup, first international role, MLS data sync (20+ providers, RabbitMQ/Postgres/Node.js), incidents reduced, left when asked to relocate to Turkey
-5. **Blockchain Journey** — Learned Solidity, joined Socious (Japanese startup), rewrote PHP→Node.js, escrow on Milkomeda→Cardano (Aiken), digital identity, full refactor, left when realized fund-chasing model
-6. **Fatherhood** — Son born Sep 21 2025, war/sanctions/chaos context, can't get passport due refused military service
-7. **What's Next** — Building fitness app, helping others, LLM/AI agents, open for work
+- **`layouts/partials/stories.html`** — `{{ range $.Site.Data.stories }}` renders each story accordion item with icon, paragraphs, and gallery images from `static/assets/stories/web/{folder}/`.
+- **`layouts/partials/consulting.html`** — `{{ range .Site.Data.consulting.plans }}` and `{{ range .Site.Data.consulting.skillGroups }}`.
+- **`layouts/partials/support.html`** — `{{ range .Site.Data.crypto.chains }}` for donation tabs.
+- **`js/main.js`** — Handles all interactivity post-render: accordion toggle, crypto chain tabs + clipboard copy, lightbox (loads full-size from `/assets/stories/full/`), Intersection Observer scroll-reveal, nav scroll effect, smooth scroll.
 
-## Crypto Addresses (in js/main.js)
+## Blog Posts
 
-- ETH: `0x0eF141188cc4E8E0f8022ad7c50172f0feEE9Ca8`
-- BTC: `bc1pc8vuu2va29wp3mlf5zye7pfl0g350agxeerqe67hm3jt6876cleqhxutmd`
-- BSC: `0x0eF141188cc4E8E0f8022ad7c50172f0feEE9Ca8` (same as ETH)
-- XRP: `rKSCtxX1EMpLd2TK1y9sreNb3QAKnT12DG`
-- ADA: `addr1qxgp4e62vnqpp4u3nxmlsy6f484h4gfhup2sdznm3c2tena9dve7tnrgrjhkvepdapa7eus0a9y57aty6tla62yj0rnqpy7wcq`
+Add a file to `content/blog/`. Front matter fields used by the template:
 
-## SEO Targets
+```yaml
+---
+title: "Post Title"
+date: 2025-01-15
+description: "Summary shown in list and single views"
+tags: ["blockchain", "golang"]
+draft: false
+---
+```
 
-Primary search terms the site is optimized for:
-- blockchain consultant / blockchain consulting
-- smart contract developer / Solidity developer
-- software architect consulting
-- startup technical consultant / startup CTO consultant
-- hire blockchain developer (remote)
-- Cardano developer / Ethereum developer
-- Golang backend architect
-- dApp development consulting
+Tags render as `<span class="skill-tag">` chips (same class as the skills grid).
 
-## Image Pipeline
+`markup.goldmark.renderer.unsafe = false` in `hugo.toml` — raw HTML in blog post markdown will not render. Use Hugo shortcodes for any HTML embedding needs.
 
-Original photos are NOT kept in the repo. Optimized versions only:
-- **Thumbnails** (`assets/stories/web/`): ffmpeg → 480px wide, WebP quality 75
-- **Full-size** (`assets/stories/full/`): ffmpeg → 1200px wide, WebP quality 85
-- To add new images: place originals in a temp folder, run ffmpeg conversion, delete originals
+## CSS Conventions
 
-## Conventions
+Custom properties in `:root`: `--bg: #101010`, `--fg: #E2DDD6`, `--accent: #E8734A`. All colors use these vars. Responsive breakpoints: 900px and 480px. Fonts via Google Fonts: Instrument Serif (headings), IBM Plex Mono (technical), Libre Franklin (body).
 
-- CSS custom properties for all colors — change theme by modifying `:root` variables
-- Fonts: Instrument Serif (headings), IBM Plex Mono (technical), Libre Franklin (body) via Google Fonts
-- Animations use CSS transforms for GPU acceleration; hero elements use staggered `fadeUp` keyframes
-- JavaScript binds via `data-*` attributes and semantic selectors — no IDs for JS hooks (except lightbox, donate elements)
-- Mobile-first responsive: nav links hidden on mobile, single-column layouts below 900px
-- Story galleries scroll horizontally on mobile, lightbox opens full-size on click
-- Skills grid: 4 columns desktop → 2 columns mobile
+## Adding Story Images
+
+```bash
+# Thumbnails (480px)
+ffmpeg -i input.jpg -vf "scale='min(480,iw)':-2" -quality 75 static/assets/stories/web/N/1.webp
+
+# Full-size for lightbox (1200px)
+ffmpeg -i input.jpg -vf "scale='min(1200,iw)':-2" -quality 85 static/assets/stories/full/N/1.webp
+```
+
+Reference in `data/stories.yaml` under `gallery.folder` and `gallery.images`. Original photos are not kept in the repo.
+
+## SEO
+
+GA4 ID `G-XE11SNJJ42` and calendar URL are set in `hugo.toml [params]`. Structured data (Person + Service schemas) and Open Graph are in `layouts/partials/head.html`. Primary SEO targets: blockchain consultant, smart contract developer, Cardano/Ethereum developer, Golang backend architect, startup CTO consulting.

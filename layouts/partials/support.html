@@ -12,7 +12,7 @@
     <div class="reveal">
       <div class="chain-tabs" id="chainTabs">
         {{ range $.Site.Data.crypto.chains }}
-        <button class="chain-tab{{ if .default }} active{{ end }}" data-chain="{{ .id }}">{{ .symbol }} {{ .label }}</button>
+        <button class="chain-tab{{ if .default }} active{{ end }}" data-chain="{{ .id }}" data-address="{{ .address }}">{{ .symbol }} {{ .label }}</button>
         {{ end }}
       </div>
 
