@@ -4,6 +4,20 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 60);
 });
 
+// ---- Hamburger menu ----
+const hamburger = document.getElementById('navHamburger');
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    nav.classList.toggle('menu-open');
+  });
+  document.getElementById('navLinks').querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => nav.classList.remove('menu-open'));
+  });
+  document.addEventListener('click', e => {
+    if (!nav.contains(e.target)) nav.classList.remove('menu-open');
+  });
+}
+
 // ---- Story accordion ----
 document.querySelectorAll('.story-item').forEach(item => {
   item.querySelector('.story-header').addEventListener('click', () => {

@@ -1,7 +1,7 @@
 <!-- NAV -->
 <nav id="mainNav">
   <a href="/" class="nav-logo">Ehsan M.</a>
-  <div class="nav-links">
+  <div class="nav-links" id="navLinks">
     {{ if .IsHome }}
     <a href="#stories">Stories</a>
     <a href="#consulting">Consulting</a>
@@ -14,4 +14,7 @@
     <a href="/blog/">Blog</a>
     <a href="/assets/Ehsan_Mahmoudi_CV.pdf" download="Ehsan_Mahmoudi_CV.pdf" class="nav-cv">↓ CV</a>
   </div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
