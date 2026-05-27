@@ -105,3 +105,145 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     if (target) target.scrollIntoView({ behavior: 'smooth' });
   });
 });
+
+async function getUserHash() {
+  let hash = localStorage.getItem("chat_user_hash");
+
+  if (hash) return hash;
+
+  const raw = [
+    navigator.userAgent,
+    navigator.language,
+    screen.width,
+    screen.height,
+    Intl.DateTimeFormat().resolvedOptions().timeZone
+  ].join("|");
+
+  const encoder = new TextEncoder();
+  const data = encoder.encode(raw);
+
+  const digest = await crypto.subtle.digest("SHA-256", data);
+
+  hash = Array.from(new Uint8Array(digest))
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
+
+  localStorage.setItem("chat_user_hash", hash);
+
+  return hash;
+}
+
+async function sendMessageToBot(message) {
+  const res = await fetch("https://chat.e-mahmoudi.me/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      message,
+      user_hash: await getUserHash(),
+    })
+  });
+
+  const data = await res.json();
+  return data.message.content;
+}
+
+function showTypingIndicator() {
+  const div = document.createElement("div");
+  div.className = "bot-message";
+
+  div.innerHTML = `
+    <div class="typing">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  `;
+
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  return div;
+}
+
+// === CHAT WIDGET LOGIC ===
+const chatToggle = document.getElementById("chat-toggle");
+const chatDialog = document.getElementById("chat-dialog");
+const chatMessages = document.getElementById("chat-messages");
+const chatInput = document.getElementById("chat-input");
+const chatSendBtn = document.getElementById("chat-send");
+const chatCloseBtn = document.getElementById("chat-close");
+
+// Append message
+function appendMessage(sender, text) {
+  const messageDiv = document.createElement("div");
+
+  messageDiv.className =
+    sender === "user" ? "user-message" : "bot-message";
+
+  messageDiv.textContent = text;
+
+  chatMessages.appendChild(messageDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+setTimeout(() => chatDialog.classList.remove("hidden"), 10000);
+
+// Open chat
+chatToggle.addEventListener("click", () => {
+  chatDialog.classList.remove("hidden");
+});
+
+// Close chat
+chatCloseBtn.addEventListener("click", () => {
+  chatDialog.classList.add("hidden");
+});
+
+// Send message
+async function sendMessage() {
+  const text = chatInput.value.trim();
+  if (!text) return;
+
+  appendMessage("user", text);
+  chatInput.value = "";
+
+  // disable input while waiting
+  chatInput.disabled = true;
+  chatSendBtn.disabled = true;
+  chatInput.placeholder = "Ehsan is thinking...";
+
+  const typingBubble = showTypingIndicator();
+
+  try {
+    const reply = await sendMessageToBot(text);
+
+    typingBubble.textContent = reply;
+
+  } catch (err) {
+    typingBubble.textContent =
+      "Sorry, something went wrong. Please try again.";
+    console.error(err);
+
+  } finally {
+    chatInput.disabled = false;
+    chatSendBtn.disabled = false;
+    chatInput.placeholder = "Ask something...";
+    chatInput.focus();
+  }
+}
+
+// Send button
+chatSendBtn.addEventListener("click", sendMessage);
+
+// Enter key
+chatInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    sendMessage();
+  }
+});
+
+// Hide on page load
+document.addEventListener("DOMContentLoaded", () => {
+  chatDialog.classList.add("hidden");
+});

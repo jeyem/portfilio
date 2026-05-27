@@ -9,12 +9,9 @@
 
 {{ partial "footer.html" . }}
 
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close">&times;</button>
-  <img id="lightboxImg" src="" alt="">
-</div>
+{{ partial "chatbox.html" . }}
 
-<script src="/js/main.js"></script>
-{{ block "scripts" . }}{{ end }}
+  <script src="/js/main.js"></script>
+  {{ block "scripts" . }}{{ end }}
 </body>
 </html>
