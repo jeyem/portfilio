@@ -480,6 +480,33 @@ footer .links a:hover { color: var(--accent); }
   .hero-actions { flex-direction: column; }
   .hero-stats { flex-direction: column; gap: 1.5rem; }
   .chain-tabs { flex-wrap: wrap; }
+
+  /* Mobile Chat Widget Adjustments */
+  #chat-widget {
+    bottom: 16px;
+    right: 0;
+    /* Ensure widget is visible even if main content pushes it */
+    z-index: 9999;
+  }
+  #chat-toggle {
+    width: 50px;
+    height: 50px;
+    font-size: 1.4rem;
+  }
+  #chat-dialog {
+    bottom: 0; /* Match button vertical alignment */
+    width: 100%;
+    width: 90vw; /* Use viewport width for responsiveness */
+    max-width: 320px; /* Cap it at a reasonable size */
+    height: auto;
+    max-height: 80vh; /* Use viewport height */
+  }
+  .chat-header {
+    padding: 15px;
+  }
+  #chat-messages {
+    padding: 15px;
+  }
 }
 
 /* ---- BLOG LIST ---- */
