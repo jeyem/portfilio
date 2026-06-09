@@ -113,7 +113,7 @@ nav.menu-open .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rot
 .btn-primary {
   display: inline-flex; align-items: center; gap: 10px;
   background: var(--accent); color: var(--cream);
-  padding: 16px 32px; border-radius: 4px;
+  padding: 14px 24px; border-radius: 4px;
   font-family: 'Libre Franklin', sans-serif;
   font-weight: 600; font-size: 0.95rem;
   text-decoration: none; border: none; cursor: pointer;
@@ -127,7 +127,7 @@ nav.menu-open .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rot
 .btn-ghost {
   display: inline-flex; align-items: center;
   background: none; border: 1.5px solid var(--border);
-  color: var(--fg); padding: 16px 32px; border-radius: 4px;
+  color: var(--fg); padding: 14px 24px; border-radius: 4px;
   font-family: 'Libre Franklin', sans-serif;
   font-weight: 500; font-size: 0.95rem;
   text-decoration: none; cursor: pointer;
