@@ -6,6 +6,10 @@ on:
     paths: ['content/blog/**']
   workflow_dispatch:
     inputs:
+      dry_run:
+        description: 'Preview only — publish nothing (safe smoke test).'
+        type: boolean
+        default: false
       announce:
         description: 'Announce new posts (Mastodon + share issue). Set false for the first/seed run.'
         type: boolean
@@ -31,6 +35,7 @@ jobs:
       - name: Syndicate
         env:
           SITE_BASE_URL: https://e-mahmoudi.me/
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || '' }}
           ANNOUNCE: ${{ github.event_name == 'workflow_dispatch' && inputs.announce || 'true' }}
           # Long-form (optional)
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
