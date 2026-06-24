@@ -28,7 +28,8 @@ content/
     _index.md               # Blog list description
     *.md                    # Blog posts
 layouts/
-  _default/baseof.html      # Base template (nav, lightbox overlay, main.js)
+  _default/baseof.html      # Base template (nav, footer, chatbox, main.js, "scripts" block)
+  _default/taxonomy.html    # Tag listing pages (/tags/<tag>/)
   index.html                # Homepage: assembles hero/stories/consulting/support partials
   partials/
     head.html               # <head> — SEO, OG, structured data, GA4, Google Fonts
@@ -37,6 +38,7 @@ layouts/
     stories.html            # Renders $.Site.Data.stories
     consulting.html         # Renders $.Site.Data.consulting
     support.html            # Renders $.Site.Data.crypto
+    chatbox.html            # Lightbox overlay + "Chat with Ehsan" widget markup
     footer.html
   blog/
     list.html               # Blog index
@@ -56,7 +58,6 @@ static/
   _headers                  # HTTP headers for CDN
 static/css/style.css        # All styles — Hugo serves this at /css/style.css
 static/js/main.js           # All scripts — Hugo serves this at /js/main.js
-static/js/blog.js           # Blog-specific scripts (progress bar, etc.)
 ```
 
 ## Architecture
@@ -68,8 +69,10 @@ Content and data are separated: dynamic section content lives in `data/*.yaml` f
 - **`layouts/partials/stories.html`** — `{{ range $.Site.Data.stories }}` renders each story accordion item with icon, paragraphs, and gallery images from `static/assets/stories/web/{folder}/`.
 - **`layouts/partials/consulting.html`** — `{{ range .Site.Data.consulting.plans }}` and `{{ range .Site.Data.consulting.skillGroups }}`.
 - **`layouts/partials/support.html`** — `{{ range .Site.Data.crypto.chains }}` for donation tabs.
-- **`static/js/main.js`** — Handles all interactivity post-render: accordion toggle, crypto chain tabs + clipboard copy, lightbox (loads full-size from `/assets/stories/full/`), Intersection Observer scroll-reveal, nav scroll effect, smooth scroll.
-- **`static/js/blog.js`** — Blog-specific: reading progress bar.
+- **`layouts/partials/chatbox.html`** — Included by `baseof.html`, so it renders on every page. Holds the lightbox overlay (`#lightbox`/`#lightboxImg`) and the floating "Chat with Ehsan" widget.
+- **`static/js/main.js`** — All interactivity post-render: accordion toggle, crypto chain tabs + clipboard copy, lightbox (loads full-size from `/assets/stories/full/`), Intersection Observer scroll-reveal, nav scroll effect, smooth scroll, and the chat widget. There is no `blog.js`; per-page scripts go in the `{{ define "scripts" }}` block.
+
+**Chat widget**: posts to the external API `https://chat.e-mahmoudi.me/chat` (a separate backend, not in this repo). It generates a per-visitor `chat_user_hash` in `localStorage` and sends it with each message; the dialog auto-opens after 10s.
 
 ## Blog Posts
 
@@ -88,6 +91,15 @@ draft: false
 Tags render as `<span class="skill-tag">` chips (same class as the skills grid).
 
 `markup.goldmark.renderer.unsafe = false` in `hugo.toml` — raw HTML in blog post markdown will not render. Use Hugo shortcodes for any HTML embedding needs.
+
+## Blog Syndication
+
+`.github/workflows/syndicate.yml` runs `.github/scripts/syndicate.py` on every push to `master` touching `content/blog/**` (also `workflow_dispatch`). It cross-posts each post and **always links back to e-mahmoudi.me** (the goal is portfolio traffic): full article + `canonical_url` + visible backlink to dev.to/Hashnode; auto-announce to Mastodon; and a GitHub issue with pre-filled submit links + LLM-drafted copy for LinkedIn/X/HN/Reddit/Lobsters (no safe write API). See `.github/SYNDICATION.md` for the secrets/variables.
+
+Key facts when editing the script:
+- It must compute each post's URL exactly like Hugo's `/blog/:slug/` permalink: front-matter `slug` if present, else the **slugified title** (not the filename) — `slugify()` mirrors this. Get it wrong and `canonical_url` breaks.
+- Publishing is idempotent (dev.to by canonical_url, Hashnode by slug). Announce/share fire once per post, tracked in `.github/syndication-state.json` (committed back with `[skip ci]`; not under `content/blog/` so it won't retrigger).
+- Every platform is optional (missing secret → skipped) and fails soft. The LLM (`LLM_*`, OpenAI-compatible, HF default) only writes short social copy, never the articles.
 
 ## CSS Conventions
 

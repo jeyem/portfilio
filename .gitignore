@@ -12,6 +12,13 @@ Thumbs.db
 # Environment
 .env
 .env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
 
 # Node (if ever added)
 node_modules/

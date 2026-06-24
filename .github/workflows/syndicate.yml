@@ -1,0 +1,58 @@
+name: Syndicate blog posts
+
+on:
+  push:
+    branches: [master]
+    paths: ['content/blog/**']
+  workflow_dispatch:
+    inputs:
+      announce:
+        description: 'Announce new posts (Mastodon + share issue). Set false for the first/seed run.'
+        type: boolean
+        default: true
+
+permissions:
+  contents: write # commit the syndication state file
+  issues: write # open the manual-share checklist issue
+
+concurrency:
+  group: syndicate
+  cancel-in-progress: false
+
+jobs:
+  syndicate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r .github/scripts/requirements.txt
+      - name: Syndicate
+        env:
+          SITE_BASE_URL: https://e-mahmoudi.me/
+          ANNOUNCE: ${{ github.event_name == 'workflow_dispatch' && inputs.announce || 'true' }}
+          # Long-form (optional)
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+          HASHNODE_TOKEN: ${{ secrets.HASHNODE_TOKEN }}
+          HASHNODE_PUBLICATION_ID: ${{ secrets.HASHNODE_PUBLICATION_ID }}
+          # Social (optional)
+          MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
+          MASTODON_TOKEN: ${{ secrets.MASTODON_TOKEN }}
+          # LLM copy generation (optional; OpenAI-compatible endpoint)
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ vars.LLM_BASE_URL }}
+          LLM_MODEL: ${{ vars.LLM_MODEL }}
+          # Provided automatically
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python .github/scripts/syndicate.py
+      - name: Commit syndication state
+        run: |
+          if [[ -n "$(git status --porcelain .github/syndication-state.json)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add .github/syndication-state.json
+            git commit -m "chore: update syndication state [skip ci]"
+            git push
+          fi
